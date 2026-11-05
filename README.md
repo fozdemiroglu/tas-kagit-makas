@@ -4,6 +4,8 @@
 
 **Oynamak için yukarıdaki bağlantıya tıkla.** İndirme, kurulum veya GitHub hesabı gerekmez.
 
+[![Taş Kağıt Makas oyun ekranı — oynamak için tıkla](assets/preview.jpg)](https://fozdemiroglu.github.io/tas-kagit-makas/)
+
 FOZ Yapım sunar · **Fatih Özdemiroğlu**
 
 Bilgisayara karşı neon taş–kağıt–makas. İlk **3 galibiyete** ulaşan maçı kazanır; beraberlikler puan getirmez.
