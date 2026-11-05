@@ -20,7 +20,7 @@ Maç başlamadan önce sen / 1. oyuncu **X veya O seçer**. Diğer oyuncu / bilg
 
 ## SOS
 
-4 × 4, 5 × 5 veya 6 × 6 tahta seçilir. Her iki oyuncu da **S veya O** koyabilir. Yatay, dikey ve iki çapraz yönde oluşan her yeni SOS **1 puan** getirir. Bir hamlede birden fazla SOS puanı alınabilir. **Puan alan yeniden oynar.** Tahta dolunca daha çok puanı olan kazanır. Yeni maçta tahta puanları sıfırlanır.
+**3 × 3 · Mini**, 4 × 4, 5 × 5 veya 6 × 6 tahta seçilir. Mini tahta daha kısa oyunlar için uygundur. Her iki oyuncu da **S veya O** koyabilir. Yatay, dikey ve iki çapraz yönde oluşan her yeni SOS **1 puan** getirir. Bir hamlede birden fazla SOS puanı alınabilir. **Puan alan yeniden oynar.** Tahta dolunca daha çok puanı olan kazanır. Yeni maçta tahta puanları sıfırlanır.
 
 S / O tuşlarıyla harf seçilebilir. Yerleştirme için bir hücreye dokunulur veya Tab ve Enter kullanılır. Renkler harfi yerleştiren oyuncuyu; çizgiler SOS'u tamamlayan oyuncuyu gösterir.
 
