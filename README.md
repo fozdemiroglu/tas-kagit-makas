@@ -27,6 +27,10 @@ Düğmelere dokun veya **1: Taş · 2: Kağıt · 3: Makas** tuşlarını kullan
 
 Kazanılan maç sayısı yalnızca kullandığın tarayıcıda saklanır. Ses başlangıçta kapalıdır. Bilgisayar her tur rastgele ve oyuncunun seçiminden bağımsız seçim yapar.
 
+## Yeni: XOX & SOS
+
+**[▶ XOX & SOS OYNA](https://fozdemiroglu.github.io/tas-kagit-makas/xox-sos/)** — Bilgisayara karşı veya 2 kişi, iki strateji oyunu. [Açıklamalar ve kaynak kodları](xox-sos/).
+
 ## Diğer FOZ Yapım oyunları
 
 - [▶ Shadow Runner](https://fozdemiroglu.github.io/shadow-runner/)
