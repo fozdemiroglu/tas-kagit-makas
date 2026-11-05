@@ -16,7 +16,7 @@
 
 ## XOX
 
-1. oyuncu X, 2. oyuncu / bilgisayar O kullanır. Yatay, dikey veya çapraz üçlü turu kazanır. İlk **3 tur galibiyetine** ulaşan maçı kazanır. Beraberlikler puan getirmez. Her tur başlangıç oyuncusu değişir.
+Maç başlamadan önce sen / 1. oyuncu **X veya O seçer**. Diğer oyuncu / bilgisayar diğer sembolü kullanır. Seçim yapılana kadar tahta kapalıdır. Semboller maç boyunca sabit kalır; yeni maçta yeniden seçilir. Yatay, dikey veya çapraz üçlü turu kazanır. İlk **3 tur galibiyetine** ulaşan maçı kazanır. Beraberlikler puan getirmez. Her tur başlangıç oyuncusu değişir.
 
 ## SOS
 
