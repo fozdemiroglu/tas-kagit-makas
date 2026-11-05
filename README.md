@@ -8,12 +8,18 @@
 
 FOZ Yapım sunar · **Fatih Özdemiroğlu**
 
-Bilgisayara karşı neon taş–kağıt–makas. İlk **3 galibiyete** ulaşan maçı kazanır; beraberlikler puan getirmez.
+Bilgisayara karşı veya aynı cihazda iki kişiyle neon taş–kağıt–makas. İlk **3 galibiyete** ulaşan maçı kazanır; beraberlikler puan getirmez.
 
 - Büyük ✊ ✋ ✌️ düğmeleri; dokunmatik ve klavye desteği.
 - Taş… Kağıt… Makas! animasyonu, skor tabelası ve kazanınca konfeti.
 - Son altı tur, kazanılan maç sayısı ve isteğe bağlı ses.
 - Telefon ve bilgisayara uyumlu ekran; azaltılmış hareket tercihine destek.
+
+## İki kişilik oyun
+
+Üstteki **👥 2 kişi** seçeneğine bas. **1. oyuncu** seçim yapar; seçim gizlenir ve cihazı devretme ekranı açılır. Ekranı diğer oyuncuya ver; **2. oyuncu hazır** düğmesine basıp ikinci seçimi yap. İki el animasyon sonunda birlikte açılır. İlk üç galibiyete ulaşan kazanır.
+
+Seçim yapılırken diğer oyuncu ekrana bakmamalıdır. Her iki oyuncu aynı cihazı sırayla kullanır. Mod değişikliği veya yeniden başlatma mevcut maçı sıfırlar. İki kişilik maçlar bilgisayara karşı kazanılan maç sayacını değiştirmez.
 
 ## Kontroller
 
