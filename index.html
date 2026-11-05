@@ -107,7 +107,7 @@ async function play(choice){
  if(mode==='duo'){
   if(phase==='p1'){
    firstChoice=choice;phase='handoff';clearSelection();$('playerHand').textContent=$('cpuHand').textContent='✊';
-   title('Sıra 2. oyuncuda','İlk seçim gizlendi. Hazır olunca aşağıdaki düğmeye basın.');score();$('ready').focus();return;
+   $('playerLabel').textContent='1. oyuncu hazır';$('cpuLabel').textContent='2. oyuncunun seçimi';title('Sıra 2. oyuncuda','İlk seçim gizlendi. Hazır olunca aşağıdaki düğmeye basın.');score();$('ready').focus();return;
   }
   if(phase==='p2'&&firstChoice){const first=firstChoice;firstChoice=null;return reveal(first,choice)}
   return;
