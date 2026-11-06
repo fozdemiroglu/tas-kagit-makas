@@ -2,6 +2,8 @@
 
 ## [▶ TARAYICIDA OYNA](https://fozdemiroglu.github.io/tas-kagit-makas/dordu-bir-yerde/)
 
+[![4’ü Bir Yerde oyun ekranı](https://raw.githubusercontent.com/fozdemiroglu/fozdemiroglu/main/assets/dordu-bir-yerde-preview.jpg)](https://fozdemiroglu.github.io/tas-kagit-makas/dordu-bir-yerde/)
+
 **FOZ Yapım sunar · Fatih Özdemiroğlu**
 
 6×7 dikey tahtada dört taşını yatay, dikey veya çapraz birleştir. Ücretsiz ve reklamsız; indirme, kurulum veya hesap gerekmez. Harici kütüphane veya CDN kullanmaz.

@@ -2,6 +2,8 @@
 
 ## [▶ TARAYICIDA OYNA](https://fozdemiroglu.github.io/tas-kagit-makas/mayin-tarlasi/)
 
+[![Mayın Tarlası oyun ekranı](https://raw.githubusercontent.com/fozdemiroglu/fozdemiroglu/main/assets/mayin-tarlasi-preview.jpg)](https://fozdemiroglu.github.io/tas-kagit-makas/mayin-tarlasi/)
+
 **FOZ Yapım sunar · Fatih Özdemiroğlu**
 
 Ücretsiz ve reklamsız mantık oyunu. İndirme, kurulum veya hesap gerekmez. Harici kütüphane veya CDN kullanmaz; index.html doğrudan açılabilir.
