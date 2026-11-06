@@ -1,0 +1,174 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="author" content="Fatih Özdemiroğlu"><meta name="theme-color" content="#100c18"><meta name="description" content="4’ü Bir Yerde — FOZ Yapım. Ücretsiz ve reklamsız, telefon veya bilgisayarda tarayıcıdan oyna."><title>4’ü Bir Yerde · FOZ Yapım</title><style>
+:root{color-scheme:dark;--bg:#100c18;--panel:#21182e;--line:#ffffff1c;--muted:#b9adc7;--gold:#ffc564;--mint:#77f3d1;--purple:#bca0ff}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#44215566,transparent 55%),var(--bg);color:#fff;font-family:system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}button,select{font:inherit}button{cursor:pointer;touch-action:manipulation}a{color:inherit;text-decoration:none}button:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offset:3px}header,footer{max-width:1150px;margin:auto;padding:20px 4%;display:flex;justify-content:space-between;align-items:center;gap:16px;border-bottom:1px solid var(--line)}.brand{font-size:13px;font-weight:900;letter-spacing:2px}.brand b{display:inline-grid;place-items:center;background:var(--gold);color:#24140a;width:32px;height:32px;border-radius:9px;margin-right:11px}.edition{font-size:10px;letter-spacing:2px;color:var(--gold)}main{max-width:1150px;margin:auto;padding:28px 4%;display:grid;grid-template-columns:280px minmax(0,1fr);gap:34px;align-items:start}.intro{padding-top:22px}.eyebrow{color:var(--gold);font-size:10px;letter-spacing:2px;font-weight:800}h1{font-size:55px;line-height:1.04;letter-spacing:-2.5px;margin:20px 0}h1 span{color:var(--gold)}h1 em{color:var(--purple);font-style:normal}.intro p{color:var(--muted);font-size:13px;line-height:1.9}.signature{font-size:11px;color:var(--muted);line-height:1.9;margin:24px 0}.signature strong{display:block;color:#fff;font-size:14px}.rules{border-top:1px solid var(--line);padding-top:16px}.rules strong{font-size:11px;letter-spacing:1px;color:var(--gold)}.arena{border:1px solid #bca0ff44;background:linear-gradient(145deg,#281b35e8,#17111fe8);border-radius:25px;padding:20px;box-shadow:0 25px 70px #0004}.switch{display:flex;gap:6px;padding:5px;border:1px solid var(--line);border-radius:12px;background:#08061066;margin-bottom:12px}.switch button{flex:1;border:1px solid transparent;background:transparent;color:var(--muted);border-radius:8px;min-height:44px;font-size:12px;font-weight:750}.switch button[aria-pressed=true]{color:var(--gold);border-color:#ffc56455;background:#ffc56412}.settings{display:flex;gap:14px;align-items:center;flex-wrap:wrap;color:var(--muted);font-size:12px;margin-bottom:12px}select{background:#171020;border:1px solid #ffffff35;border-radius:8px;padding:9px;color:#fff;min-height:42px}.stats{display:grid;grid-template-columns:repeat(3,1fr);border-block:1px solid var(--line);padding:12px 0;text-align:center;gap:8px}.stats small{font-size:10px;letter-spacing:1px;color:var(--muted);display:block}.stats b{font-size:25px;color:var(--mint);display:block;margin-top:3px;font-variant-numeric:tabular-nums}.stats .purple{color:var(--purple)}.stats .gold{color:var(--gold)}.status{padding:13px 0 12px;text-align:center;min-height:70px}.status h2{font-size:18px;color:var(--gold);margin:0 0 4px}.status p{color:var(--muted);font-size:11px;line-height:1.6;margin:0}.tools{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px}.tool{background:#ffffff06;border:1px solid #ffffff26;color:var(--muted);border-radius:9px;min-height:42px;padding:9px 12px;font-size:11px}.primary{background:var(--gold);border-color:var(--gold);color:#24170c;font-weight:850}.tool[aria-pressed=true]{border-color:var(--gold);color:var(--gold)}.help{color:var(--muted);font-size:10px;line-height:1.7;text-align:center;margin:12px 0 0}.record{color:var(--muted);font-size:11px;text-align:center;padding-top:14px;margin-top:15px;border-top:1px solid var(--line)}footer{border-top:1px solid var(--line);border-bottom:0;flex-wrap:wrap;font-size:10px;color:var(--muted);line-height:1.8}footer nav{display:flex;gap:13px;flex-wrap:wrap}footer a:hover{color:var(--gold)}[hidden]{display:none!important}.confetti{position:fixed;inset:0;pointer-events:none;z-index:9;overflow:hidden}.confetti i{position:absolute;top:-15px;width:8px;height:11px;animation:fall 2.6s ease-in forwards}@keyframes fall{to{transform:translate(var(--drift),105vh) rotate(600deg);opacity:0}}@keyframes drop{from{transform:translateY(-35px);opacity:.4}to{transform:translateY(0);opacity:1}}@media(max-width:760px){main{display:flex;flex-direction:column;padding:20px 3%;gap:16px}.intro{padding:0;text-align:center;width:100%}h1{font-size:36px;letter-spacing:-1.5px;margin:10px 0}.intro p{margin:0}.intro .rules,.intro .signature{display:none}.arena{width:100%;padding:15px 11px}.edition{font-size:8px;letter-spacing:1px}.brand{font-size:11px}header{padding:15px 4%}.status h2{font-size:17px}footer{justify-content:center;text-align:center}footer nav{justify-content:center}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.confetti{display:none}}
+.board{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px;background:#09071066;border:1px solid #ffffff15;padding:10px;border-radius:17px}.column{background:transparent;border:1px solid transparent;border-radius:10px;padding:3px;display:flex;flex-direction:column;gap:7px;min-width:0;color:var(--muted)}.column:hover:not(:disabled){background:#ffc5640e;border-color:#ffc56455}.column:disabled{cursor:default;opacity:1}.colnum{font-size:11px;color:var(--gold);height:18px}.slot{aspect-ratio:1;display:grid;place-items:center;border-radius:50%;background:#ffffff0b;border:1px solid #ffffff15;font-size:clamp(12px,2vw,20px);font-weight:900;line-height:1;color:#13241e}.slot.p1{background:var(--mint);box-shadow:inset 0 -3px 0 #0003}.slot.p2{background:var(--purple);color:#231737;box-shadow:inset 0 -3px 0 #0003}.slot.fresh{animation:drop .22s ease-out}.slot.winning{outline:3px solid var(--gold);outline-offset:1px}@media(max-width:420px){.board{gap:3px;padding:7px}.column{gap:5px;padding:2px}.slot{font-size:14px}}</style></head><body><header><a class="brand" href="https://github.com/fozdemiroglu"><b>F</b>FOZ YAPIM</a><span class="edition">MINI ARCADE · OYUN 07</span></header><main><aside class="intro"><div class="eyebrow">BİR HAMLE. YENİ BİR FİKİR.</div><h1><span>DÖRT TAŞ.</span><br><em>BİR ZAFER.</em></h1><p>Sütununu seç, taşını bırak.<br>Dördünü birleştir, maçı kazan!</p><div class="signature">FOZ Yapım sunar<strong>Fatih Özdemiroğlu</strong>Birlikte düşün, birlikte eğlen.</div><div class="rules"><strong>NASIL OYNANIR?</strong><p>6 × 7 tahtada aynı oyuncunun dört taşı yatay, dikey veya çapraz birleşince oyun biter. Taşlar seçilen sütunun en altındaki boşluğa düşer. Dolu sütuna hamle yapılamaz. 1–7 tuşları, Tab ve Enter veya dokunma ile oynanır. Klasik bilgisayar beş hamle derinliğinde Minimax arar; yenilmezlik iddiası yoktur.</p></div></aside><section class="arena" aria-label="4’ü Bir Yerde oyun alanı"><div class="switch" role="group" aria-label="Rakip"><button id="solo" aria-pressed="true">🤖 Bilgisayara karşı</button><button id="duo" aria-pressed="false">👥 2 kişi</button></div><div class="settings"><label id="levelWrap">Seviye <select id="level"><option value="easy">Minik stratejist</option><option value="classic" selected>Klasik</option></select></label><label>İlk başlayan <select id="starter"><option value="1">1. oyuncu / Sen</option><option value="2">2. oyuncu / Bilgisayar</option></select></label></div><div class="stats"><div><small id="p1name">SEN · ●</small><b id="p1score">0</b></div><div><small>BERABERE</small><b class="gold" id="draws">0</b></div><div><small id="p2name">BİLGİSAYAR · ◆</small><b class="purple" id="p2score">0</b></div></div><div class="status" role="status" aria-live="polite"><h2 id="headline"></h2><p id="message"></p></div><div class="board" id="board" role="group" aria-label="Yedi sütunlu oyun tahtası"></div><div class="tools"><button class="tool primary" id="reset">Yeni oyun ↻</button><button class="tool" id="sound" aria-pressed="false">♪ Ses kapalı</button><button class="tool" id="clear">Skorları sil</button></div><p class="help">Bir sütuna dokun veya 1–7 tuşlarını kullan. Taş en alta düşer.<br>● Mint: 1. oyuncu · ◆ Mor: 2. oyuncu</p><div class="record" id="record"></div><details class="help"><summary>Kurallar ve kontroller</summary><p>6 × 7 tahtada aynı oyuncunun dört taşı yatay, dikey veya çapraz birleşince oyun biter. Taşlar seçilen sütunun en altındaki boşluğa düşer. Dolu sütuna hamle yapılamaz. 1–7 tuşları, Tab ve Enter veya dokunma ile oynanır. Klasik bilgisayar beş hamle derinliğinde Minimax arar; yenilmezlik iddiası yoktur.</p></details></section></main><footer><span>FOZ YAPIM SUNAR · FATİH ÖZDEMİROĞLU · 2026</span><nav aria-label="Diğer oyunlar"><a href="https://fozdemiroglu.github.io/shadow-runner/">Shadow Runner ↗</a><a href="https://fozdemiroglu.github.io/neon-drift/">Neon Drift ↗</a><a href="https://fozdemiroglu.github.io/neon-tower/">Neon Tower ↗</a><a href="https://fozdemiroglu.github.io/tas-kagit-makas/">Taş Kağıt Makas ↗</a><a href="https://fozdemiroglu.github.io/tas-kagit-makas/xox-sos/">XOX & SOS ↗</a><a href="https://fozdemiroglu.github.io/tas-kagit-makas/mayin-tarlasi/">Mayın Tarlası ↗</a></nav></footer><div class="confetti" id="confetti" aria-hidden="true"></div><script id="engine">const Four=(()=>{const ROWS=6,COLS=7,HUMAN=1,AI=2;
+    function getOpenRow(b, col) {
+      for (let r = ROWS - 1; r >= 0; r--) {
+        if (b[r][col] === 0) return r;
+      }
+      return -1;
+    }
+
+    function dropPiece(b, row, col, piece) {
+      b[row][col] = piece;
+    }
+
+    function getValidLocations(b) {
+      const validCols = [];
+      const centerOrder = [3, 2, 4, 1, 5, 0, 6];
+      for (let c of centerOrder) {
+        if (b[0][c] === 0) validCols.push(c);
+      }
+      return validCols;
+    }
+
+    function checkWinningMove(b, p) {
+      for (let r = 0; r < ROWS; r++) {
+        for (let c = 0; c < COLS - 3; c++) {
+          if (b[r][c] === p && b[r][c+1] === p && b[r][c+2] === p && b[r][c+3] === p) {
+            return [[r,c], [r,c+1], [r,c+2], [r,c+3]];
+          }
+        }
+      }
+      for (let c = 0; c < COLS; c++) {
+        for (let r = 0; r < ROWS - 3; r++) {
+          if (b[r][c] === p && b[r+1][c] === p && b[r+2][c] === p && b[r+3][c] === p) {
+            return [[r,c], [r+1,c], [r+2,c], [r+3,c]];
+          }
+        }
+      }
+      for (let r = 3; r < ROWS; r++) {
+        for (let c = 0; c < COLS - 3; c++) {
+          if (b[r][c] === p && b[r-1][c+1] === p && b[r-2][c+2] === p && b[r-3][c+3] === p) {
+            return [[r,c], [r-1,c+1], [r-2,c+2], [r-3,c+3]];
+          }
+        }
+      }
+      for (let r = 0; r < ROWS - 3; r++) {
+        for (let c = 0; c < COLS - 3; c++) {
+          if (b[r][c] === p && b[r+1][c+1] === p && b[r+2][c+2] === p && b[r+3][c+3] === p) {
+            return [[r,c], [r+1,c+1], [r+2,c+2], [r+3,c+3]];
+          }
+        }
+      }
+      return null;
+    }
+
+    function evaluateWindow(window, piece) {
+      let score = 0;
+      const oppPiece = piece === HUMAN ? AI : HUMAN;
+      const pieceCount = window.filter(x => x === piece).length;
+      const emptyCount = window.filter(x => x === 0).length;
+      const oppCount = window.filter(x => x === oppPiece).length;
+
+      if (pieceCount === 4) score += 10000;
+      else if (pieceCount === 3 && emptyCount === 1) score += 100;
+      else if (pieceCount === 2 && emptyCount === 2) score += 10;
+
+      if (oppCount === 3 && emptyCount === 1) score -= 120;
+
+      return score;
+    }
+
+    function scorePosition(b, piece) {
+      let score = 0;
+      const centerCol = [];
+      for (let r = 0; r < ROWS; r++) centerCol.push(b[r][3]);
+      const centerCount = centerCol.filter(x => x === piece).length;
+      score += centerCount * 6;
+
+      for (let r = 0; r < ROWS; r++) {
+        for (let c = 0; c < COLS - 3; c++) {
+          score += evaluateWindow([b[r][c], b[r][c+1], b[r][c+2], b[r][c+3]], piece);
+        }
+      }
+      for (let c = 0; c < COLS; c++) {
+        for (let r = 0; r < ROWS - 3; r++) {
+          score += evaluateWindow([b[r][c], b[r+1][c], b[r+2][c], b[r+3][c]], piece);
+        }
+      }
+      for (let r = 3; r < ROWS; r++) {
+        for (let c = 0; c < COLS - 3; c++) {
+          score += evaluateWindow([b[r][c], b[r-1][c+1], b[r-2][c+2], b[r-3][c+3]], piece);
+        }
+      }
+      for (let r = 0; r < ROWS - 3; r++) {
+        for (let c = 0; c < COLS - 3; c++) {
+          score += evaluateWindow([b[r][c], b[r+1][c+1], b[r+2][c+2], b[r+3][c+3]], piece);
+        }
+      }
+
+      return score;
+    }
+
+    function minimax(b, depth, alpha, beta, maximizingPlayer) {
+      const validLocations = getValidLocations(b);
+      const isTerminal = checkWinningMove(b, HUMAN) || checkWinningMove(b, AI) || validLocations.length === 0;
+
+      if (depth === 0 || isTerminal) {
+        if (isTerminal) {
+          if (checkWinningMove(b, AI)) return [null, 1000000];
+          if (checkWinningMove(b, HUMAN)) return [null, -1000000];
+          return [null, 0];
+        }
+        return [null, scorePosition(b, AI)];
+      }
+
+      if (maximizingPlayer) {
+        let value = -Infinity;
+        let bestCol = validLocations[0];
+        for (let col of validLocations) {
+          const row = getOpenRow(b, col);
+          b[row][col] = AI;
+          const newScore = minimax(b, depth - 1, alpha, beta, false)[1];
+          b[row][col] = 0;
+          if (newScore > value) {
+            value = newScore;
+            bestCol = col;
+          }
+          alpha = Math.max(alpha, value);
+          if (alpha >= beta) break;
+        }
+        return [bestCol, value];
+      } else {
+        let value = Infinity;
+        let bestCol = validLocations[0];
+        for (let col of validLocations) {
+          const row = getOpenRow(b, col);
+          b[row][col] = HUMAN;
+          const newScore = minimax(b, depth - 1, alpha, beta, true)[1];
+          b[row][col] = 0;
+          if (newScore < value) {
+            value = newScore;
+            bestCol = col;
+          }
+          beta = Math.min(beta, value);
+          if (alpha >= beta) break;
+        }
+        return [bestCol, value];
+      }
+    }
+
+
+return {getOpenRow,getValidLocations,checkWinningMove,minimax,scorePosition};})();</script><script>(()=>{'use strict';
+const $=id=>document.getElementById(id);let sound=false,audio,confettiTimer;
+function tone(freq=450,duration=.1){if(!sound)return;try{audio??=new(window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume();const o=audio.createOscillator(),g=audio.createGain();o.frequency.value=freq;g.gain.setValueAtTime(.055,audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+duration);o.connect(g);g.connect(audio.destination);o.start();o.stop(audio.currentTime+duration)}catch{}}
+function clearEffects(){clearTimeout(confettiTimer);$('confetti').replaceChildren()}
+function celebrate(){clearEffects();if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;for(let i=0;i<45;i++){const e=document.createElement('i');e.style.cssText=`left:${Math.random()*100}%;background:${['#77f3d1','#ffc564','#bca0ff'][i%3]};--drift:${Math.random()*180-90}px;animation-delay:${Math.random()*.4}s`;$('confetti').append(e)}confettiTimer=setTimeout(clearEffects,3300)}
+function status(h,p){$('headline').textContent=h;$('message').textContent=p}
+$('sound').onclick=()=>{sound=!sound;$('sound').setAttribute('aria-pressed',String(sound));$('sound').textContent=sound?'♪ Ses açık':'♪ Ses kapalı';tone(530)};
+function getRecord(key,initial){try{return JSON.parse(localStorage.getItem(key))??initial}catch{return initial}}
+function saveRecord(key,value){try{localStorage.setItem(key,JSON.stringify(value))}catch{}}
+
+let b=[],turn=1,mode='solo',level='classic',starter=1,ended=false,busy=false,won=[],last='',timer,epoch=0,stats;
+const key=()=>`foz_four_v1_${mode}_${mode==='solo'?level:'duo'}`;
+function read(){const s=getRecord(key(),null);stats=s&&Array.isArray(s.wins)&&s.wins.length===2&&s.wins.every(x=>Number.isSafeInteger(x)&&x>=0)&&Number.isSafeInteger(s.draws)&&s.draws>=0?s:{wins:[0,0],draws:0}}
+function name(p){return mode==='solo'?(p===1?'Sen':'Bilgisayar'):`${p}. oyuncu`}
+function active(){return !ended&&b.some(row=>row.some(Boolean))}
+function reset(){epoch++;clearTimeout(timer);clearEffects();b=Array.from({length:6},()=>Array(7).fill(0));turn=starter;ended=busy=false;won=[];last='';read();status(`${name(turn)}, sıra sende!`,'Yatay, dikey veya çapraz dört taşını birleştir.');render();schedule()}
+function render(){for(const m of ['solo','duo'])$(m).setAttribute('aria-pressed',String(m===mode));$('levelWrap').hidden=mode==='duo';$('level').value=level;$('starter').value=starter;$('p1name').textContent=name(1).toLocaleUpperCase('tr-TR')+' · ●';$('p2name').textContent=name(2).toLocaleUpperCase('tr-TR')+' · ◆';$('p1score').textContent=stats.wins[0];$('p2score').textContent=stats.wins[1];$('draws').textContent=stats.draws;$('record').textContent='Maç skorları bu tarayıcıda saklanır. Rakip ve seviye ayrı izlenir.';$('board').replaceChildren();for(let c=0;c<7;c++){const col=document.createElement('button');col.className='column';col.disabled=ended||busy||Four.getOpenRow(b,c)<0;col.setAttribute('aria-label',`${c+1}. sütuna taş bırak${Four.getOpenRow(b,c)<0?' — dolu':''}`);const num=document.createElement('span');num.className='colnum';num.textContent=c+1;col.append(num);for(let r=0;r<6;r++){const cell=document.createElement('span');cell.className='slot'+(b[r][c]?' p'+b[r][c]:'')+(last===`${r},${c}`?' fresh':'')+(won.some(x=>x[0]===r&&x[1]===c)?' winning':'');cell.textContent=b[r][c]===1?'●':b[r][c]===2?'◆':'';cell.setAttribute('aria-label',`${r+1}. satır: ${b[r][c]?name(b[r][c]):'boş'}`);col.append(cell)}col.onclick=()=>move(c);$('board').append(col)}}
+function finish(w){ended=true;busy=false;clearTimeout(timer);if(w)stats.wins[w-1]++;else stats.draws++;saveRecord(key(),stats);status(w?`${name(w)} kazandı! 🏆`:'Berabere! 🤝',w?'Dört taş bir arada. Yeni bir oyuna hazır mısın?':'Tahta doldu. Güzel mücadele!');if(w&&(mode==='duo'||w===1)){celebrate();tone(780,.3)}else tone(260,.16);render()}
+function move(c,bot=false){if(ended||(!bot&&(busy||(mode==='solo'&&turn===2))))return;const r=Four.getOpenRow(b,c);if(r<0)return;busy=false;b[r][c]=turn;last=`${r},${c}`;tone();won=Four.checkWinningMove(b,turn)||[];if(won.length){finish(turn);return}if(!Four.getValidLocations(b).length){finish(0);return}turn=3-turn;status(`${name(turn)}, sıra sende!`,'Bir sütun seç. Taşın en alta yerleşir.');render();schedule()}
+function schedule(){if(mode!=='solo'||turn!==2||ended)return;busy=true;status('Bilgisayar düşünüyor…','Hamleni planlamak için biraz zaman.');render();const token=epoch;timer=setTimeout(()=>{if(token!==epoch||mode!=='solo'||turn!==2||ended)return;const valid=Four.getValidLocations(b);if(!valid.length)return;const c=level==='easy'?valid[Math.floor(Math.random()*valid.length)]:Four.minimax(b,5,-Infinity,Infinity,true)[0];move(c??valid[0],true)},350)}
+function change(fn){if(active()&&!confirm('Ayar değişince mevcut oyun yeniden başlayacak. Devam edilsin mi?')){render();return}fn();reset()}
+$('solo').onclick=()=>{if(mode!=='solo')change(()=>mode='solo')};$('duo').onclick=()=>{if(mode!=='duo')change(()=>mode='duo')};$('level').onchange=e=>{const v=e.target.value;change(()=>level=v)};$('starter').onchange=e=>{const v=+e.target.value;change(()=>starter=v)};$('reset').onclick=()=>{if(!active()||confirm('Mevcut oyun yeniden başlatılsın mı?'))reset()};$('clear').onclick=()=>{if(confirm('Seçili rakip ve seviyenin maç skorları silinsin mi?')){stats={wins:[0,0],draws:0};saveRecord(key(),stats);render()}};document.addEventListener('keydown',e=>{if(e.repeat||e.ctrlKey||e.metaKey||e.altKey||e.target.matches('select,input,textarea'))return;if(/^[1-7]$/.test(e.key)){e.preventDefault();move(+e.key-1)}});reset();
+})();</script></body></html>

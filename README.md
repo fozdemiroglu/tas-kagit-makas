@@ -36,3 +36,8 @@ Kazanılan maç sayısı yalnızca kullandığın tarayıcıda saklanır. Ses ba
 - [▶ Shadow Runner](https://fozdemiroglu.github.io/shadow-runner/)
 - [▶ Neon Drift](https://fozdemiroglu.github.io/neon-drift/)
 - [▶ Neon Tower](https://fozdemiroglu.github.io/neon-tower/)
+
+## Yeni FOZ Yapım oyunları
+
+- [▶ Mayın Tarlası / Sayı Avcısı](https://fozdemiroglu.github.io/tas-kagit-makas/mayin-tarlasi/)
+- [▶ 4’ü Bir Yerde](https://fozdemiroglu.github.io/tas-kagit-makas/dordu-bir-yerde/)
