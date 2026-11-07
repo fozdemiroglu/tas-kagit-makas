@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#07071a">
+<meta name="description" content="Neon Hafıza — FOZ Yapım kart eşleştirme oyunu. Reklamsız, veri toplamaz, internetsiz çalışır.">
+<title>Neon Hafıza · FOZ Yapım</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2307071a'/%3E%3Cpath d='M50 16 84 50 50 84 16 50Z' fill='none' stroke='%23ff2bd6' stroke-width='8'/%3E%3Cpath d='M50 36 64 50 50 64 36 50Z' fill='%2300f0ff'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#07071a;
+  --pink:#ff2bd6;
+  --cyan:#00f0ff;
+  --green:#39ff14;
+  --yellow:#ffe600;
+  --red:#ff3b5c;
+  --text:#ecebff;
+  --muted:#8b8ac0;
+  --panel:rgba(20,16,60,.72);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:radial-gradient(ellipse at 50% -10%,#24104d 0%,var(--bg) 62%) fixed,var(--bg);
+  color:var(--text);
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  overflow:hidden;overscroll-behavior:none;
+  user-select:none;-webkit-user-select:none;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(0,240,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(0,240,255,.07) 1px,transparent 1px);
+  background-size:42px 42px;
+  -webkit-mask-image:radial-gradient(ellipse at 50% 100%,#000 0%,transparent 70%);
+          mask-image:radial-gradient(ellipse at 50% 100%,#000 0%,transparent 70%);
+}
+button{font:inherit;color:inherit;cursor:pointer}
+#app{
+  position:relative;height:100vh;height:100dvh;display:flex;flex-direction:column;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+.screen{display:none;flex:1;flex-direction:column;min-height:0}
+.screen.active{display:flex}
+
+/* ---------- ortak ---------- */
+.icon-btn{
+  flex:none;width:46px;height:46px;border-radius:14px;
+  display:grid;place-items:center;
+  background:var(--panel);border:1.5px solid rgba(0,240,255,.4);
+  box-shadow:0 0 10px rgba(0,240,255,.18);
+  transition:transform .12s,box-shadow .2s;
+}
+.icon-btn:active{transform:scale(.92)}
+.icon-btn svg{width:22px;height:22px;fill:none;stroke:var(--cyan);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.icon-btn[aria-pressed="false"]{border-color:rgba(139,138,192,.4);box-shadow:none}
+.icon-btn[aria-pressed="false"] svg{stroke:var(--muted)}
+.icon-btn:focus-visible,.lvl:focus-visible,.btn:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.sig{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-align:center}
+.sig b{color:var(--pink);text-shadow:0 0 8px rgba(255,43,214,.7);font-weight:700}
+
+/* ---------- menü ---------- */
+#menu{overflow-y:auto;align-items:center;padding:14px 18px 18px}
+.topbar{width:100%;max-width:520px;display:flex;justify-content:flex-end}
+.logo{margin-top:min(5vh,40px);text-align:center;line-height:.95;font-weight:900;letter-spacing:.08em}
+.logo .l1{display:block;font-size:clamp(3rem,15vw,5.2rem);color:#ffd6f6;
+  text-shadow:0 0 6px var(--pink),0 0 18px var(--pink),0 0 42px var(--pink);animation:flicker 5s infinite}
+.logo .l2{display:block;font-size:clamp(2.3rem,11.5vw,4rem);color:#d6fdff;
+  text-shadow:0 0 6px var(--cyan),0 0 18px var(--cyan),0 0 42px var(--cyan)}
+@keyframes flicker{0%,92%,100%{opacity:1}93%{opacity:.55}94%{opacity:1}96%{opacity:.7}97%{opacity:1}}
+.tagline{margin-top:14px;color:var(--muted);font-size:1.05rem;text-align:center}
+.sets{width:100%;max-width:440px;margin-top:min(4vh,28px);display:flex;flex-direction:column;gap:10px}
+.sets h2,.levels h2{font-size:.85rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-align:center}
+.set-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.set{--c:var(--yellow);display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px 9px;border-radius:16px;
+  background:var(--panel);border:2px solid rgba(139,138,192,.35);font-weight:700;font-size:.95rem;color:var(--muted);transition:transform .12s}
+.set:active{transform:scale(.95)}
+.set svg{width:34px;height:34px;fill:none;stroke:currentColor;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+.set[aria-checked="true"]{border-color:var(--c);color:var(--c);text-shadow:0 0 8px var(--c);
+  box-shadow:0 0 14px color-mix(in srgb,var(--c) 40%,transparent),inset 0 0 14px color-mix(in srgb,var(--c) 14%,transparent)}
+.set[aria-checked="true"] svg{filter:drop-shadow(0 0 4px currentColor)}
+.set:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.levels{width:100%;max-width:440px;margin:min(4vh,28px) 0 20px;display:flex;flex-direction:column;gap:14px}
+.lvl{
+  --c:var(--cyan);
+  display:grid;grid-template-columns:1fr auto;align-items:center;gap:4px 12px;
+  text-align:left;padding:16px 20px;border-radius:18px;
+  background:var(--panel);border:2px solid var(--c);
+  box-shadow:0 0 14px color-mix(in srgb,var(--c) 35%,transparent),inset 0 0 18px color-mix(in srgb,var(--c) 12%,transparent);
+  transition:transform .12s;
+}
+.lvl:active{transform:scale(.97)}
+.lvl-name{font-size:1.45rem;font-weight:800;color:var(--c);text-shadow:0 0 10px var(--c)}
+.lvl-size{font-size:.95rem;color:var(--text);opacity:.85;justify-self:end}
+.lvl-best{grid-column:1/-1;font-size:.88rem;color:var(--muted)}
+.lvl-best .st{color:var(--yellow);text-shadow:0 0 6px rgba(255,230,0,.6);letter-spacing:.08em}
+.menu-foot{margin-top:auto;padding-top:10px;display:flex;flex-direction:column;gap:6px}
+.privacy{font-size:.78rem;color:var(--muted);text-align:center;opacity:.8}
+
+/* ---------- oyun ---------- */
+.hud{display:flex;align-items:center;gap:8px;padding:10px 12px 4px;width:100%;max-width:640px;margin:0 auto}
+.stats{flex:1;display:flex;gap:6px;min-width:0}
+.stat{flex:1;min-width:0;padding:5px 4px;border-radius:12px;background:var(--panel);
+  border:1px solid rgba(255,43,214,.3);text-align:center}
+.stat .k{display:block;font-size:.62rem;letter-spacing:.06em;white-space:nowrap;overflow:hidden;text-overflow:clip;text-transform:uppercase;color:var(--muted)}
+.stat .v{display:block;font-size:1.15rem;font-weight:800;font-variant-numeric:tabular-nums;color:#fff;text-shadow:0 0 8px rgba(0,240,255,.7)}
+#wrap{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:12px}
+#grid{display:grid;justify-content:center;align-content:center}
+.game-foot{padding:2px 12px 10px;display:flex;justify-content:center;gap:10px}
+#lvlTag{color:var(--c,var(--cyan));text-shadow:0 0 8px var(--c,var(--cyan))}
+
+/* ---------- kart ---------- */
+.card{position:relative;border:0;background:none;padding:0;perspective:700px;border-radius:16%;outline:none}
+.card-inner{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .38s cubic-bezier(.35,.9,.4,1.15);border-radius:inherit}
+.card.up .card-inner,.card.matched .card-inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;border-radius:inherit;display:flex;align-items:center;justify-content:center;
+  -webkit-backface-visibility:hidden;backface-visibility:hidden}
+.back{
+  background:
+    repeating-linear-gradient(45deg,rgba(0,240,255,.06) 0 6px,transparent 6px 12px),
+    linear-gradient(145deg,#1d1356,#0c0930);
+  border:2px solid rgba(0,240,255,.5);
+  box-shadow:0 0 10px rgba(0,240,255,.22),inset 0 0 16px rgba(255,43,214,.18);
+  transition:border-color .2s,box-shadow .2s;
+}
+.back::before{content:"";width:32%;aspect-ratio:1;border:2.5px solid var(--pink);border-radius:18%;transform:rotate(45deg);
+  box-shadow:0 0 8px var(--pink),inset 0 0 8px var(--pink)}
+.back::after{content:"";position:absolute;width:10%;aspect-ratio:1;background:var(--cyan);border-radius:20%;transform:rotate(45deg);
+  box-shadow:0 0 8px var(--cyan)}
+@media (hover:hover){.card:not(.up):not(.matched):hover .back{border-color:var(--cyan);box-shadow:0 0 18px rgba(0,240,255,.5),inset 0 0 16px rgba(255,43,214,.25)}}
+.card:focus-visible .back,.card:focus-visible .front{outline:3px solid #fff;outline-offset:2px}
+.front{transform:rotateY(180deg);background:radial-gradient(circle at 50% 40%,#17143e,#08081c);
+  border:2px solid currentColor;box-shadow:0 0 10px color-mix(in srgb,currentColor 45%,transparent)}
+.front svg{width:70%;height:70%;fill:none;stroke:currentColor;stroke-width:6.5;stroke-linecap:round;stroke-linejoin:round;
+  filter:drop-shadow(0 0 3px currentColor) drop-shadow(0 0 9px currentColor)}
+.front.veh svg{width:78%;height:78%;stroke-width:5}
+.card.matched .front{box-shadow:0 0 18px currentColor,inset 0 0 14px color-mix(in srgb,currentColor 35%,transparent);animation:pop .45s ease-out}
+.card.wrong{animation:shake .42s}
+.card.wrong .front{border-color:var(--red);box-shadow:0 0 16px var(--red)}
+.card.deal{animation:deal .42s cubic-bezier(.3,1.4,.5,1) both}
+@keyframes pop{0%{transform:rotateY(180deg) scale(1)}45%{transform:rotateY(180deg) scale(1.12)}100%{transform:rotateY(180deg) scale(1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(4px)}}
+@keyframes deal{from{opacity:0;transform:translateY(24px) scale(.6)}to{opacity:1;transform:none}}
+
+/* ---------- kazandın penceresi ---------- */
+.overlay{position:fixed;inset:0;z-index:20;display:none;align-items:center;justify-content:center;padding:20px;
+  background:rgba(4,3,18,.72);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.overlay.show{display:flex;animation:fade .25s ease-out}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.modal{width:100%;max-width:380px;padding:26px 22px 22px;border-radius:24px;text-align:center;
+  background:linear-gradient(160deg,#1e1458,#0b0a2a);border:2px solid var(--pink);
+  box-shadow:0 0 30px rgba(255,43,214,.45),inset 0 0 26px rgba(0,240,255,.12);animation:rise .4s cubic-bezier(.3,1.4,.5,1)}
+@keyframes rise{from{transform:translateY(30px) scale(.9);opacity:0}to{transform:none;opacity:1}}
+.modal h2{font-size:2.1rem;font-weight:900;color:#fff;text-shadow:0 0 10px var(--pink),0 0 26px var(--pink)}
+.stars{margin:14px 0 6px;font-size:3rem;letter-spacing:.12em;line-height:1}
+.stars span{display:inline-block;color:#3a3870;transform:scale(.4);opacity:0;transition:transform .35s cubic-bezier(.3,1.8,.5,1),opacity .2s}
+.stars span.in{transform:scale(1);opacity:1}
+.stars span.on{color:var(--yellow);text-shadow:0 0 10px var(--yellow),0 0 24px rgba(255,230,0,.6)}
+.record{display:none;margin:6px auto 4px;padding:4px 12px;width:max-content;border-radius:999px;font-weight:800;font-size:.9rem;
+  color:#07071a;background:var(--green);box-shadow:0 0 14px var(--green);animation:pulse 1.2s ease-in-out infinite}
+.record.show{display:block}
+@keyframes pulse{50%{transform:scale(1.07)}}
+.result{margin-top:10px;display:flex;justify-content:center;gap:10px}
+.result div{flex:1;max-width:130px;padding:8px;border-radius:14px;background:rgba(0,0,0,.25);border:1px solid rgba(0,240,255,.3)}
+.result .k{display:block;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.result .v{display:block;font-size:1.5rem;font-weight:800;font-variant-numeric:tabular-nums}
+.bestline{margin-top:10px;font-size:.88rem;color:var(--muted);min-height:1.2em}
+.actions{margin-top:18px;display:flex;flex-direction:column;gap:10px}
+.btn{padding:14px;border-radius:16px;font-weight:800;font-size:1.08rem;border:2px solid var(--cyan);background:rgba(0,240,255,.12);
+  color:#fff;text-shadow:0 0 8px var(--cyan);box-shadow:0 0 14px rgba(0,240,255,.35);transition:transform .12s}
+.btn:active{transform:scale(.96)}
+.btn.alt{border-color:rgba(139,138,192,.5);background:transparent;box-shadow:none;text-shadow:none;color:var(--text)}
+
+#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:30}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.12s!important}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-heart" viewBox="0 0 100 100"><path d="M50 84C20 62 10 45 21 30c10-13 25-9 29 4 4-13 19-17 29-4 11 15 1 32-29 54z"/></symbol>
+    <symbol id="i-star" viewBox="0 0 100 100"><path d="M50 12l11 26 28 2-21 18 7 28-25-16-25 16 7-28-21-18 28-2z"/></symbol>
+    <symbol id="i-circle" viewBox="0 0 100 100"><circle cx="50" cy="50" r="32"/></symbol>
+    <symbol id="i-triangle" viewBox="0 0 100 100"><path d="M50 16l36 64H14z"/></symbol>
+    <symbol id="i-square" viewBox="0 0 100 100"><rect x="21" y="21" width="58" height="58" rx="7"/></symbol>
+    <symbol id="i-diamond" viewBox="0 0 100 100"><path d="M50 12l34 38-34 38-34-38z"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 100 100"><path d="M64 14A36 36 0 1 0 86 62 28 28 0 1 1 64 14z"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 100 100"><path d="M57 10L23 56h24l-6 34 37-50H54z"/></symbol>
+    <symbol id="i-hexagon" viewBox="0 0 100 100"><path d="M50 12l33 19v38L50 88 17 69V31z"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 100 100"><path d="M40 16h20v24h24v20H60v24H40V60H16V40h24z"/></symbol>
+    <symbol id="i-ring" viewBox="0 0 100 100"><circle cx="50" cy="50" r="34"/><circle cx="50" cy="50" r="15"/></symbol>
+    <symbol id="i-drop" viewBox="0 0 100 100"><path d="M50 12C40 26 22 46 22 62a28 28 0 0 0 56 0c0-16-18-36-28-50z"/></symbol>
+    <symbol id="i-smile" viewBox="0 0 100 100"><circle cx="50" cy="50" r="34"/><circle cx="38" cy="42" r="3" fill="currentColor"/><circle cx="62" cy="42" r="3" fill="currentColor"/><path d="M35 58q15 16 30 0"/></symbol>
+    <symbol id="i-note" viewBox="0 0 100 100"><path d="M40 70V24l34-8v46"/><circle cx="30" cy="70" r="10"/><circle cx="64" cy="62" r="10"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 100 100"><circle cx="50" cy="50" r="15"/><path d="M50 11v11M50 78v11M11 50h11M78 50h11M23 23l8 8M69 69l8 8M77 23l-8 8M31 69l-8 8"/></symbol>
+    <symbol id="i-fish" viewBox="0 0 100 100"><path d="M16 50c14-22 44-24 62 0-18 24-48 22-62 0z"/><path d="M78 50l14-14v28z"/><circle cx="34" cy="47" r="2.5" fill="currentColor"/></symbol>
+
+    <!-- Taşıtlar -->
+    <symbol id="v-car" viewBox="0 0 100 100"><path d="M20 66H12V57Q12 50 20 49L32 47 42 34H66L78 47 86 48Q92 50 92 57V66H84M36 66H68M32 47H79M54 34V47"/><circle cx="28" cy="66" r="8"/><circle cx="76" cy="66" r="8"/></symbol>
+    <symbol id="v-suv" viewBox="0 0 100 100"><path d="M19 68H10V50Q10 46 14 45L22 44 30 28H80Q86 28 87 34L90 46V68H85M37 68H67M22 44H89M56 28V44M36 21H76"/><circle cx="28" cy="68" r="9"/><circle cx="76" cy="68" r="9"/></symbol>
+    <symbol id="v-bus" viewBox="0 0 100 100"><path d="M18 68H12Q8 68 8 64V32Q8 26 14 26H86Q92 26 92 32V64Q92 68 88 68H84M34 68H68M14 34H86V46H14ZM32 34V46M50 34V46M68 34V46"/><circle cx="26" cy="68" r="8"/><circle cx="76" cy="68" r="8"/></symbol>
+    <symbol id="v-tir" viewBox="0 0 100 100"><path d="M6 24H62V58H6ZM6 62H92M66 62V32H80L90 46V62M72 36H79L85 46H72Z"/><circle cx="16" cy="72" r="7"/><circle cx="32" cy="72" r="7"/><circle cx="80" cy="72" r="7"/></symbol>
+    <symbol id="v-truck" viewBox="0 0 100 100"><path d="M8 28H58L54 56H12ZM62 56V32H76L88 46V56M6 58H92M67 37H74L81 46H67Z"/><circle cx="24" cy="69" r="9"/><circle cx="76" cy="69" r="9"/></symbol>
+    <symbol id="v-moto" viewBox="0 0 100 100"><circle cx="22" cy="66" r="12"/><circle cx="78" cy="66" r="12"/><path d="M22 66L40 50H62L78 66M34 43H56M62 50L70 34H80M44 50L50 62H60L62 50"/></symbol>
+    <symbol id="v-bike" viewBox="0 0 100 100"><circle cx="24" cy="64" r="15"/><circle cx="76" cy="64" r="15"/><path d="M24 64L40 38 48 64ZM40 38H66L48 64M66 38L76 64M34 34H46M66 38L63 29H72"/></symbol>
+    <symbol id="v-plane" viewBox="0 0 100 100"><path d="M50 10C54 10 56 16 56 24V40L88 58V64L56 56V76L66 84V88L50 84 34 88V84L44 76V56L12 64V58L44 40V24C44 16 46 10 50 10Z"/></symbol>
+    <symbol id="v-train" viewBox="0 0 100 100"><path d="M12 58V24H42V38H86Q90 38 90 42V58ZM20 30H34V40H20ZM70 38V26H80V38M4 81H96"/><circle cx="24" cy="68" r="8"/><circle cx="50" cy="68" r="8"/><circle cx="76" cy="68" r="8"/></symbol>
+    <symbol id="v-heli" viewBox="0 0 100 100"><path d="M32 44H62Q76 44 76 57Q76 66 66 66H36Q24 66 24 55Q24 44 32 44ZM24 54H8M8 47V61M16 34H84M50 34V44M30 77H74M40 66V77M64 66V77M58 47Q70 49 72 58H58Z"/></symbol>
+    <symbol id="v-ship" viewBox="0 0 100 100"><path d="M8 58H92L82 76H18ZM24 58V44H70V58M50 44V30H62V44M34 51H40M48 51H54M62 51H68M6 87Q15 82 24 87T42 87 60 87 78 87 96 87"/></symbol>
+    <symbol id="v-sail" viewBox="0 0 100 100"><path d="M12 66H88L78 80H22ZM50 12V66M55 18L82 60H55ZM45 26L22 60H45ZM6 89Q15 84 24 89T42 89 60 89 78 89 96 89"/></symbol>
+    <symbol id="v-rocket" viewBox="0 0 100 100"><path d="M50 8C64 20 66 40 64 64H36C34 40 36 20 50 8ZM36 48L24 64V76L36 68M64 48L76 64V76L64 68M42 70L50 90 58 70"/><circle cx="50" cy="36" r="7"/></symbol>
+    <symbol id="v-tractor" viewBox="0 0 100 100"><path d="M16 46V18H46V46M48 46H84V60H70M72 46V32M20 24H42V40H20Z"/><circle cx="32" cy="64" r="16"/><circle cx="32" cy="64" r="4"/><circle cx="78" cy="71" r="9"/></symbol>
+    <symbol id="v-digger" viewBox="0 0 100 100"><path d="M10 60V40H28V24H46V60ZM46 40L72 18 88 44M82 44H94L90 58Q80 60 82 44ZM14 64H62Q72 64 72 72Q72 80 62 80H14Q6 80 6 72Q6 64 14 64Z"/><circle cx="18" cy="72" r="3" fill="currentColor"/><circle cx="38" cy="72" r="3" fill="currentColor"/><circle cx="58" cy="72" r="3" fill="currentColor"/></symbol>
+    <symbol id="v-balloon" viewBox="0 0 100 100"><path d="M50 8C26 8 18 28 22 42 26 54 40 60 44 66H56C60 60 74 54 78 42 82 28 74 8 50 8ZM50 8C40 22 40 50 44 66M50 8C60 22 60 50 56 66M44 66L42 77M56 66L58 77M39 77H61V90H39Z"/></symbol>
+    <symbol id="v-scooter" viewBox="0 0 100 100"><path d="M25 72H72M72 72L80 20M70 20H88"/><circle cx="18" cy="76" r="7"/><circle cx="80" cy="76" r="7"/></symbol>
+
+    <!-- Arayüz simgeleri -->
+    <symbol id="u-dice" viewBox="0 0 100 100"><rect x="18" y="18" width="64" height="64" rx="12"/><circle cx="36" cy="36" r="5" fill="currentColor"/><circle cx="64" cy="36" r="5" fill="currentColor"/><circle cx="50" cy="50" r="5" fill="currentColor"/><circle cx="36" cy="64" r="5" fill="currentColor"/><circle cx="64" cy="64" r="5" fill="currentColor"/></symbol>
+  </defs>
+</svg>
+
+<div id="app">
+  <!-- MENÜ -->
+  <section id="menu" class="screen active" aria-labelledby="logo">
+    <div class="topbar">
+      <button class="icon-btn snd" type="button"></button>
+    </div>
+    <h1 class="logo" id="logo"><span class="l1" data-t="title1"></span><span class="l2" data-t="title2"></span></h1>
+    <p class="tagline" data-t="tagline"></p>
+    <div class="sets">
+      <h2 id="setTitle" data-t="chooseSet"></h2>
+      <div class="set-row" id="setList" role="radiogroup" aria-labelledby="setTitle"></div>
+    </div>
+    <div class="levels">
+      <h2 data-t="chooseLevel"></h2>
+      <div id="levelList" style="display:flex;flex-direction:column;gap:14px"></div>
+    </div>
+    <div class="menu-foot">
+      <p class="privacy" data-t="privacy"></p>
+      <p class="sig"><b>FOZ</b> Yapım</p>
+    </div>
+  </section>
+
+  <!-- OYUN -->
+  <section id="game" class="screen" aria-label="Oyun">
+    <header class="hud">
+      <button class="icon-btn" id="btnMenu" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="stats">
+        <div class="stat"><span class="k" data-t="moves"></span><span class="v" id="sMoves">0</span></div>
+        <div class="stat"><span class="k" data-t="time"></span><span class="v" id="sTime">0:00</span></div>
+        <div class="stat"><span class="k" data-t="pairs"></span><span class="v" id="sPairs">0/0</span></div>
+      </div>
+      <button class="icon-btn snd" type="button"></button>
+      <button class="icon-btn" id="btnRestart" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.34-5.66"/><path d="M20 4v5h-5"/></svg></button>
+    </header>
+    <div id="wrap"><div id="grid" role="grid"></div></div>
+    <div class="game-foot sig"><span id="lvlTag"></span><span>·</span><span><b>FOZ</b> Yapım</span></div>
+  </section>
+</div>
+
+<!-- KAZANDIN -->
+<div class="overlay" id="winBox" role="dialog" aria-modal="true" aria-labelledby="winTitle">
+  <div class="modal">
+    <h2 id="winTitle" data-t="win"></h2>
+    <div class="stars" id="winStars" aria-hidden="true"><span>★</span><span>★</span><span>★</span></div>
+    <div class="record" id="winRecord" data-t="newRecord"></div>
+    <div class="result">
+      <div><span class="k" data-t="moves"></span><span class="v" id="wMoves">0</span></div>
+      <div><span class="k" data-t="time"></span><span class="v" id="wTime">0:00</span></div>
+    </div>
+    <p class="bestline" id="wBest"></p>
+    <div class="actions">
+      <button class="btn" id="btnAgain" type="button" data-t="again"></button>
+      <button class="btn" id="btnOther" type="button" style="border-color:var(--yellow);background:rgba(255,230,0,.1);text-shadow:0 0 8px var(--yellow);box-shadow:0 0 14px rgba(255,230,0,.3)"></button>
+      <button class="btn alt" id="btnLevels" type="button" data-t="chooseLevel"></button>
+    </div>
+  </div>
+</div>
+
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ===== Metinler (EN sonradan buraya eklenecek) ===== */
+  var STRINGS = {
+    tr: {
+      title1: 'NEON', title2: 'HAFIZA',
+      tagline: 'Kartları çevir, eşlerini bul!',
+      chooseLevel: 'Zorluk seç',
+      chooseSet: 'Kart seti',
+      sets: { sekil: 'Şekiller', tasit: 'Taşıtlar', rastgele: 'Rastgele' },
+      playWith: { sekil: 'Şekillerle oyna', tasit: 'Taşıtlarla oyna' },
+      best: 'En iyi', noBest: 'Henüz rekor yok',
+      moves: 'Hamle', time: 'Süre', pairs: 'Eşleşme',
+      movesWord: 'hamle', pairWord: 'çift',
+      win: 'Tebrikler!', newRecord: 'Yeni rekor!',
+      again: 'Tekrar oyna',
+      menu: 'Menüye dön', restart: 'Yeniden başlat',
+      soundOn: 'Ses açık', soundOff: 'Ses kapalı',
+      privacy: 'Reklam yok · Veri toplamaz · İnternetsiz çalışır',
+      hidden: 'Kapalı kart',
+      found: 'bulundu',
+      levels: { kolay: 'Kolay', orta: 'Orta', zor: 'Zor' },
+      icons: {
+        heart: 'Kalp', star: 'Yıldız', circle: 'Daire', triangle: 'Üçgen', square: 'Kare',
+        diamond: 'Elmas', moon: 'Ay', bolt: 'Şimşek', hexagon: 'Altıgen', plus: 'Artı',
+        ring: 'Halka', drop: 'Damla', smile: 'Gülen yüz', note: 'Nota', sun: 'Güneş', fish: 'Balık',
+        car: 'Araba', suv: 'SUV', bus: 'Otobüs', tir: 'Tır', truck: 'Kamyon', moto: 'Motosiklet',
+        bike: 'Bisiklet', plane: 'Uçak', train: 'Tren', heli: 'Helikopter', ship: 'Gemi',
+        sail: 'Yelkenli', rocket: 'Roket', tractor: 'Traktör', digger: 'Kepçe',
+        balloon: 'Sıcak hava balonu', scooter: 'Scooter'
+      }
+    }
+  };
+  var S = STRINGS.tr;
+
+  var LEVELS = [
+    { id: 'kolay', cols: 4, rows: 3, color: '#39ff14' },
+    { id: 'orta',  cols: 4, rows: 4, color: '#00f0ff' },
+    { id: 'zor',   cols: 6, rows: 5, color: '#ff2bd6' }
+  ];
+
+  var C = { pink: '#ff2bd6', cyan: '#00f0ff', green: '#39ff14', yellow: '#ffe600',
+            orange: '#ff8a1f', purple: '#b56cff', red: '#ff3b5c', blue: '#4d86ff' };
+  var ICONS = [
+    { id: 'heart', color: C.pink },    { id: 'star', color: C.yellow },
+    { id: 'circle', color: C.cyan },   { id: 'triangle', color: C.green },
+    { id: 'square', color: C.orange }, { id: 'diamond', color: C.purple },
+    { id: 'moon', color: C.blue },     { id: 'bolt', color: C.yellow },
+    { id: 'hexagon', color: C.red },   { id: 'plus', color: C.green },
+    { id: 'ring', color: C.pink },     { id: 'drop', color: C.cyan },
+    { id: 'smile', color: C.orange },  { id: 'note', color: C.purple },
+    { id: 'sun', color: C.red },       { id: 'fish', color: C.blue }
+  ];
+  ICONS.forEach(function (ic) { ic.ref = 'i-' + ic.id; });
+
+  var VEHICLES = [
+    { id: 'car', color: C.red },        { id: 'suv', color: C.green },
+    { id: 'bus', color: C.yellow },     { id: 'tir', color: C.blue },
+    { id: 'truck', color: C.orange },   { id: 'moto', color: C.pink },
+    { id: 'bike', color: C.cyan },      { id: 'plane', color: C.purple },
+    { id: 'train', color: C.red },      { id: 'heli', color: C.green },
+    { id: 'ship', color: C.blue },      { id: 'sail', color: C.cyan },
+    { id: 'rocket', color: C.pink },    { id: 'tractor', color: C.yellow },
+    { id: 'digger', color: C.orange },  { id: 'balloon', color: C.purple },
+    { id: 'scooter', color: C.green }
+  ];
+  VEHICLES.forEach(function (ic) { ic.ref = 'v-' + ic.id; ic.veh = true; });
+
+  var SETS = {
+    sekil: { items: ICONS, icon: 'i-star', color: C.cyan },
+    tasit: { items: VEHICLES, icon: 'v-car', color: C.orange },
+    rastgele: { items: null, icon: 'u-dice', color: C.yellow }
+  };
+  var SET_ORDER = ['sekil', 'tasit', 'rastgele'];
+
+  var $ = function (s) { return document.querySelector(s); };
+  var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ===== Cihazda kayıt (localStorage, try/catch) ===== */
+  var STORE_KEY = 'foz-neon-hafiza-v1';
+  var data = { best: {}, sound: true, theme: 'rastgele' };
+  try {
+    var raw = window.localStorage.getItem(STORE_KEY);
+    if (raw) {
+      var parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === 'object') {
+        data.best = parsed.best && typeof parsed.best === 'object' ? parsed.best : {};
+        data.sound = parsed.sound !== false;
+        if (SETS[parsed.theme]) data.theme = parsed.theme;
+      }
+    }
+  } catch (e) { /* depolama yoksa bellekte devam */ }
+  function persist() {
+    try { window.localStorage.setItem(STORE_KEY, JSON.stringify(data)); } catch (e) {}
+  }
+
+  /* ===== Ses (Web Audio, dosyasız) ===== */
+  var actx = null;
+  function audio() {
+    if (!actx) {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return null;
+      try { actx = new AC(); } catch (e) { return null; }
+    }
+    if (actx.state === 'suspended') { try { actx.resume(); } catch (e) {} }
+    return actx;
+  }
+  function tone(freq, dur, type, vol, delay, slideTo) {
+    var a = audio(); if (!a) return;
+    var t = a.currentTime + (delay || 0);
+    var o = a.createOscillator(), g = a.createGain();
+    o.type = type || 'sine';
+    o.frequency.setValueAtTime(freq, t);
+    if (slideTo) o.frequency.exponentialRampToValueAtTime(slideTo, t + dur);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(vol || 0.15, t + 0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(a.destination);
+    o.start(t); o.stop(t + dur + 0.03);
+  }
+  var SFX = {
+    flip:  function () { tone(620, 0.09, 'triangle', 0.12, 0, 900); },
+    match: function () { tone(523, 0.14, 'sine', 0.16); tone(784, 0.2, 'sine', 0.16, 0.09); tone(1047, 0.22, 'sine', 0.1, 0.18); },
+    miss:  function () { tone(240, 0.24, 'sawtooth', 0.05, 0, 130); },
+    click: function () { tone(480, 0.05, 'square', 0.04); },
+    win:   function () {
+      [523, 659, 784, 1047].forEach(function (f, i) { tone(f, 0.24, 'triangle', 0.15, i * 0.12); });
+      tone(1319, 0.6, 'sine', 0.13, 0.5); tone(1568, 0.6, 'sine', 0.08, 0.5);
+    }
+  };
+  function sfx(name) { if (!data.sound) return; try { SFX[name](); } catch (e) {} }
+
+  var SND_ON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 9a4 4 0 0 1 0 6M19 6.5a7.5 7.5 0 0 1 0 11"/></svg>';
+  var SND_OFF = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M17 9.5l5 5M22 9.5l-5 5"/></svg>';
+  function renderSound() {
+    Array.prototype.forEach.call(document.querySelectorAll('.snd'), function (b) {
+      b.innerHTML = data.sound ? SND_ON : SND_OFF;
+      b.setAttribute('aria-pressed', data.sound ? 'true' : 'false');
+      b.setAttribute('aria-label', data.sound ? S.soundOn : S.soundOff);
+      b.title = data.sound ? S.soundOn : S.soundOff;
+    });
+  }
+
+  /* ===== Yardımcılar ===== */
+  function shuffle(arr) {
+    for (var i = arr.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+    }
+    return arr;
+  }
+  function fmt(ms) {
+    var s = Math.floor(ms / 1000);
+    return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+  }
+  function starsFor(moves, pairs) {
+    if (moves <= Math.floor(pairs * 1.6)) return 3;
+    if (moves <= Math.floor(pairs * 2.4)) return 2;
+    return 1;
+  }
+  function starText(n) { return '★★★'.slice(0, n) + '☆☆☆'.slice(0, 3 - n); }
+  function bestText(b) {
+    return S.best + ': ' + b.moves + ' ' + S.movesWord + ' · ' + fmt(b.time) + ' · ';
+  }
+
+  /* ===== Metinleri yerleştir ===== */
+  Array.prototype.forEach.call(document.querySelectorAll('[data-t]'), function (el) {
+    var v = S[el.getAttribute('data-t')];
+    if (typeof v === 'string') el.textContent = v;
+  });
+  $('#btnMenu').setAttribute('aria-label', S.menu); $('#btnMenu').title = S.menu;
+  $('#btnRestart').setAttribute('aria-label', S.restart); $('#btnRestart').title = S.restart;
+
+  /* ===== Ekranlar ===== */
+  function show(id) {
+    Array.prototype.forEach.call(document.querySelectorAll('.screen'), function (s) {
+      s.classList.toggle('active', s.id === id);
+    });
+  }
+
+  function renderSets() {
+    var row = $('#setList');
+    row.innerHTML = '';
+    SET_ORDER.forEach(function (id) {
+      var st = SETS[id];
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'set';
+      b.setAttribute('role', 'radio');
+      b.setAttribute('aria-checked', data.theme === id ? 'true' : 'false');
+      b.style.setProperty('--c', st.color);
+      b.innerHTML = '<svg viewBox="0 0 100 100" aria-hidden="true"><use href="#' + st.icon + '"></use></svg>';
+      var t = document.createElement('span'); t.textContent = S.sets[id];
+      b.appendChild(t);
+      b.addEventListener('click', function () {
+        data.theme = id; persist(); sfx('click'); renderSets();
+        var cur = row.querySelector('[aria-checked="true"]'); if (cur) cur.focus({ preventScroll: true });
+      });
+      row.appendChild(b);
+    });
+  }
+
+  function renderMenu() {
+    renderSets();
+    var list = $('#levelList');
+    list.innerHTML = '';
+    LEVELS.forEach(function (lv) {
+      var pairs = lv.cols * lv.rows / 2;
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'lvl';
+      b.style.setProperty('--c', lv.color);
+      var best = data.best[lv.id];
+      var name = document.createElement('span'); name.className = 'lvl-name'; name.textContent = S.levels[lv.id];
+      var size = document.createElement('span'); size.className = 'lvl-size'; size.textContent = lv.cols + ' × ' + lv.rows + ' · ' + pairs + ' ' + S.pairWord;
+      var bl = document.createElement('span'); bl.className = 'lvl-best';
+      if (best) {
+        bl.textContent = bestText(best);
+        var st = document.createElement('span'); st.className = 'st'; st.textContent = starText(best.stars);
+        bl.appendChild(st);
+      } else {
+        bl.textContent = S.noBest;
+      }
+      b.appendChild(name); b.appendChild(size); b.appendChild(bl);
+      b.addEventListener('click', function () { sfx('click'); startGame(lv); });
+      list.appendChild(b);
+    });
+  }
+
+  /* ===== Oyun durumu ===== */
+  var level = null, deck = [], pairs = 0, setId = 'sekil';
+  var first = null, second = null, lock = false;
+  var moves = 0, matched = 0, started = false, finished = false;
+  var elapsed = 0, tStart = 0, running = false, pausedByHide = false, timerId = 0;
+  var pendingTimers = [];
+
+  function later(fn, ms) { var id = setTimeout(fn, ms); pendingTimers.push(id); return id; }
+  function clearPending() { pendingTimers.forEach(clearTimeout); pendingTimers = []; }
+
+  function startTimer() {
+    if (running) return;
+    running = true; tStart = performance.now();
+    timerId = setInterval(renderTime, 250);
+  }
+  function stopTimer() {
+    if (!running) return;
+    elapsed += performance.now() - tStart;
+    running = false; clearInterval(timerId);
+  }
+  function currentTime() { return elapsed + (running ? performance.now() - tStart : 0); }
+  function renderTime() { $('#sTime').textContent = fmt(currentTime()); }
+  function renderHud() {
+    $('#sMoves').textContent = moves;
+    $('#sPairs').textContent = matched + '/' + pairs;
+    renderTime();
+  }
+
+  /* Seçilen set; "Rastgele" ise her oyunda şekiller ya da taşıtlardan biri */
+  function pickSet() {
+    if (data.theme === 'rastgele') return Math.random() < 0.5 ? 'sekil' : 'tasit';
+    return data.theme;
+  }
+
+  function startGame(lv, forcedSet) {
+    setId = forcedSet || pickSet();
+    clearPending();
+    stopTimer();
+    hideWin();
+    level = lv;
+    pairs = lv.cols * lv.rows / 2;
+    first = second = null; lock = false;
+    moves = 0; matched = 0; started = false; finished = false;
+    elapsed = 0; pausedByHide = false;
+
+    var icons = shuffle(SETS[setId].items.slice()).slice(0, pairs);
+    deck = shuffle(icons.concat(icons)).map(function (ic) { return { ic: ic, state: 'down', el: null }; });
+
+    var tag = $('#lvlTag');
+    tag.textContent = S.levels[lv.id] + ' · ' + lv.cols + '×' + lv.rows + ' · ' + S.sets[setId];
+    tag.style.setProperty('--c', lv.color);
+
+    show('game');
+    buildBoard();
+    renderHud();
+    layout();
+  }
+
+  function buildBoard() {
+    var grid = $('#grid');
+    grid.innerHTML = '';
+    deck.forEach(function (c, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'card deal';
+      b.setAttribute('role', 'gridcell');
+      b.setAttribute('aria-label', S.hidden);
+      b.style.animationDelay = (reducedMotion ? 0 : i * 22) + 'ms';
+      b.innerHTML =
+        '<span class="card-inner">' +
+          '<span class="face back"></span>' +
+          '<span class="face front' + (c.ic.veh ? ' veh' : '') + '" style="color:' + c.ic.color + '">' +
+            '<svg viewBox="0 0 100 100" aria-hidden="true"><use href="#' + c.ic.ref + '"></use></svg>' +
+          '</span>' +
+        '</span>';
+      b.addEventListener('animationend', function (e) {
+        if (e.animationName === 'deal') b.classList.remove('deal');
+        if (e.animationName === 'shake') b.classList.remove('wrong');
+      });
+      b.addEventListener('click', function () { onCard(i); });
+      c.el = b;
+      grid.appendChild(b);
+    });
+  }
+
+  /* Kartları ekrana sığdır; dikey ekranda satır/sütunu çevirir */
+  function layout() {
+    if (!level || !$('#game').classList.contains('active')) return;
+    var wrap = $('#wrap'), grid = $('#grid');
+    var r = wrap.getBoundingClientRect();
+    var W = r.width - 24, H = r.height - 24;
+    if (W <= 0 || H <= 0) return;
+    var best = null;
+    [[level.cols, level.rows], [level.rows, level.cols]].forEach(function (o) {
+      var c = o[0], rows = o[1];
+      var gap = Math.round(Math.max(6, Math.min(14, Math.min(W, H) * 0.018)));
+      var s = Math.min((W - gap * (c - 1)) / c, (H - gap * (rows - 1)) / rows);
+      if (!best || s > best.s) best = { c: c, s: s, gap: gap };
+    });
+    var size = Math.floor(Math.min(best.s, 150));
+    grid.style.gridTemplateColumns = 'repeat(' + best.c + ',' + size + 'px)';
+    grid.style.gridAutoRows = size + 'px';
+    grid.style.gap = best.gap + 'px';
+  }
+
+  function flipUp(c) {
+    c.state = 'up';
+    c.el.classList.add('up');
+    c.el.setAttribute('aria-label', S.icons[c.ic.id]);
+  }
+  function flipDown(c) {
+    c.state = 'down';
+    c.el.classList.remove('up', 'wrong');
+    c.el.setAttribute('aria-label', S.hidden);
+  }
+
+  function onCard(i) {
+    if (lock || finished) return;
+    var c = deck[i];
+    if (!c || c.state !== 'down') return;
+    audio(); // ilk dokunuşta ses motorunu aç
+    if (!started) { started = true; startTimer(); }
+
+    flipUp(c);
+    sfx('flip');
+
+    if (!first) { first = c; return; }
+
+    second = c;
+    moves++;
+    renderHud();
+    lock = true;
+
+    var a = first, b = second;
+    if (a.ic.id === b.ic.id) {
+      later(function () {
+        [a, b].forEach(function (x) {
+          x.state = 'matched';
+          x.el.classList.remove('up');
+          x.el.classList.add('matched');
+          x.el.setAttribute('aria-label', S.icons[x.ic.id] + ' — ' + S.found);
+        });
+        matched++;
+        sfx('match');
+        first = second = null; lock = false;
+        renderHud();
+        if (matched === pairs) win();
+      }, 330);
+    } else {
+      later(function () {
+        a.el.classList.add('wrong'); b.el.classList.add('wrong');
+        sfx('miss');
+      }, 380);
+      later(function () {
+        flipDown(a); flipDown(b);
+        first = second = null; lock = false;
+      }, 1000);
+    }
+  }
+
+  /* ===== Kazanma ===== */
+  function win() {
+    finished = true;
+    stopTimer();
+    var t = Math.round(currentTime());
+    var stars = starsFor(moves, pairs);
+    var prev = data.best[level.id];
+    var isRecord = !prev || moves < prev.moves || (moves === prev.moves && t < prev.time);
+    if (isRecord) {
+      data.best[level.id] = { moves: moves, time: t, stars: stars };
+      persist();
+    }
+    var best = data.best[level.id];
+
+    later(function () {
+      sfx('win');
+      confetti();
+      $('#wMoves').textContent = moves;
+      $('#wTime').textContent = fmt(t);
+      $('#winRecord').classList.toggle('show', isRecord && !!prev);
+      $('#wBest').textContent = (isRecord && !prev) ? '' : bestText(best) + starText(best.stars);
+      var spans = $('#winStars').querySelectorAll('span');
+      Array.prototype.forEach.call(spans, function (s, k) {
+        s.className = k < stars ? 'on' : '';
+        later(function () { s.classList.add('in'); }, 250 + k * 220);
+      });
+      $('#winStars').setAttribute('aria-label', stars + '/3');
+      $('#btnOther').textContent = S.playWith[setId === 'sekil' ? 'tasit' : 'sekil'];
+      $('#winBox').classList.add('show');
+      later(function () { $('#btnAgain').focus({ preventScroll: true }); }, 60);
+    }, 550);
+  }
+  function hideWin() { $('#winBox').classList.remove('show'); }
+
+  /* ===== Konfeti ===== */
+  var cv = $('#confetti'), cx = cv.getContext ? cv.getContext('2d') : null;
+  var parts = [], raf = 0, cw = 0, ch = 0;
+  function confetti() {
+    if (!cx) return;
+    var dpr = Math.min(2, window.devicePixelRatio || 1);
+    cw = window.innerWidth; ch = window.innerHeight;
+    cv.width = Math.round(cw * dpr); cv.height = Math.round(ch * dpr);
+    cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var colors = [C.pink, C.cyan, C.green, C.yellow, C.purple, C.orange];
+    var n = reducedMotion ? 50 : 170;
+    for (var i = 0; i < n; i++) {
+      var left = i % 2 === 0;
+      parts.push({
+        x: left ? -8 : cw + 8, y: ch * 0.72,
+        vx: (left ? 1 : -1) * (3 + Math.random() * 8),
+        vy: -(7 + Math.random() * 9),
+        w: 6 + Math.random() * 6, h: 4 + Math.random() * 5,
+        rot: Math.random() * 6.28, vr: (Math.random() - 0.5) * 0.35,
+        c: colors[i % colors.length], life: 0
+      });
+    }
+    if (!raf) raf = requestAnimationFrame(step);
+  }
+  function step() {
+    cx.clearRect(0, 0, cw, ch);
+    parts = parts.filter(function (p) { return p.y < ch + 30 && p.life < 420; });
+    for (var i = 0; i < parts.length; i++) {
+      var p = parts[i];
+      p.life++;
+      p.vy += 0.2; p.vx *= 0.99; p.vy *= 0.992;
+      p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+      cx.save();
+      cx.translate(p.x, p.y); cx.rotate(p.rot);
+      cx.fillStyle = p.c;
+      cx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h * (0.35 + Math.abs(Math.cos(p.life * 0.12 + p.rot))));
+      cx.restore();
+    }
+    if (parts.length) raf = requestAnimationFrame(step);
+    else { raf = 0; cx.clearRect(0, 0, cw, ch); }
+  }
+
+  /* ===== Olaylar ===== */
+  Array.prototype.forEach.call(document.querySelectorAll('.snd'), function (b) {
+    b.addEventListener('click', function () {
+      data.sound = !data.sound;
+      persist();
+      renderSound();
+      sfx('click');
+    });
+  });
+  $('#btnMenu').addEventListener('click', function () {
+    sfx('click'); clearPending(); stopTimer(); level = null; renderMenu(); show('menu');
+  });
+  $('#btnRestart').addEventListener('click', function () { if (level) { sfx('click'); startGame(level, againSet()); } });
+  // Rastgele seçiliyse her turda yeniden çekilir, değilse aynı set kalır
+  function againSet() { return data.theme === 'rastgele' ? null : setId; }
+  $('#btnAgain').addEventListener('click', function () { sfx('click'); startGame(level, againSet()); });
+  $('#btnOther').addEventListener('click', function () {
+    sfx('click'); startGame(level, setId === 'sekil' ? 'tasit' : 'sekil');
+  });
+  $('#btnLevels').addEventListener('click', function () {
+    sfx('click'); clearPending(); hideWin(); level = null; renderMenu(); show('menu');
+  });
+
+  if (window.ResizeObserver) new ResizeObserver(layout).observe($('#wrap'));
+  window.addEventListener('resize', layout);
+  window.addEventListener('orientationchange', function () { setTimeout(layout, 200); });
+
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) {
+      if (running) { stopTimer(); pausedByHide = true; }
+    } else if (pausedByHide && started && !finished && level) {
+      pausedByHide = false; startTimer();
+    }
+  });
+
+  renderSound();
+  renderMenu();
+})();
+</script>
+</body>
+</html>
