@@ -36,11 +36,11 @@ Kazanılan maç sayısı yalnızca kullandığın tarayıcıda saklanır. Ses ba
 - [▶ Shadow Runner](https://fozdemiroglu.github.io/shadow-runner/)
 - [▶ Neon Drift](https://fozdemiroglu.github.io/neon-drift/)
 - [▶ Neon Tower](https://fozdemiroglu.github.io/neon-tower/)
+- [▶ Neon Tuğla](https://fozdemiroglu.github.io/neon-tugla/)
+- [▶ Neon Yılan — 1 veya 2 kişi](https://fozdemiroglu.github.io/neon-yilan/)
 
 ## Yeni FOZ Yapım oyunları
 
 - [▶ Mayın Tarlası / Sayı Avcısı](https://fozdemiroglu.github.io/tas-kagit-makas/mayin-tarlasi/)
 - [▶ 4’ü Bir Yerde](https://fozdemiroglu.github.io/tas-kagit-makas/dordu-bir-yerde/)
 - [▶ Neon Hafıza](https://fozdemiroglu.github.io/tas-kagit-makas/neon-hafiza/)
-- [▶ Neon Tuğla](https://fozdemiroglu.github.io/tas-kagit-makas/neon-tugla/)
-- [▶ Neon Yılan — 1 veya 2 kişi](https://fozdemiroglu.github.io/tas-kagit-makas/neon-yilan/)
