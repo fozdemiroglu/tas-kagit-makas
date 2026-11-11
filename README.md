@@ -41,3 +41,5 @@ Kazanılan maç sayısı yalnızca kullandığın tarayıcıda saklanır. Ses ba
 
 - [▶ Mayın Tarlası / Sayı Avcısı](https://fozdemiroglu.github.io/tas-kagit-makas/mayin-tarlasi/)
 - [▶ 4’ü Bir Yerde](https://fozdemiroglu.github.io/tas-kagit-makas/dordu-bir-yerde/)
+- [▶ Neon Hafıza](https://fozdemiroglu.github.io/tas-kagit-makas/neon-hafiza/)
+- [▶ Neon Tuğla](https://fozdemiroglu.github.io/tas-kagit-makas/neon-tugla/)
