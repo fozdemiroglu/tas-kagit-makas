@@ -43,3 +43,4 @@ Kazanılan maç sayısı yalnızca kullandığın tarayıcıda saklanır. Ses ba
 - [▶ 4’ü Bir Yerde](https://fozdemiroglu.github.io/tas-kagit-makas/dordu-bir-yerde/)
 - [▶ Neon Hafıza](https://fozdemiroglu.github.io/tas-kagit-makas/neon-hafiza/)
 - [▶ Neon Tuğla](https://fozdemiroglu.github.io/tas-kagit-makas/neon-tugla/)
+- [▶ Neon Yılan — 1 veya 2 kişi](https://fozdemiroglu.github.io/tas-kagit-makas/neon-yilan/)
